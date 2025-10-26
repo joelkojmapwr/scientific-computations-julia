@@ -16,8 +16,8 @@ function main()
     x = Float64(1.0)
     for i in 1:15
         x /= 8
-        println("For i = $i f(x) = ", f(x))
-        println("For i = $i g(x) = ", g(x))
+        println("For i = $i f(x) = ", f(x), " g(x) = ", g(x), " |(g(x) - f(x))| / g(x) = ", abs(g(x) - f(x)) / g(x))
+        # println("For i = $i g(x) = ", g(x))
     end
     
 end
