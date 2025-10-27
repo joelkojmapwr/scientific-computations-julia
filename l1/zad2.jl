@@ -1,3 +1,4 @@
+# Joel Kojma
 function kahan_check(type)
     result = type(3.0) * (type(4.0) / type(3.0) - type(1.0)) - type(1.0)
     return result

@@ -1,4 +1,4 @@
-
+# Joel Kojma
 
 function find_x()
 

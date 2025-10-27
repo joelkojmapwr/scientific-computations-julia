@@ -1,3 +1,5 @@
+# Joel Kojma
+
 function scalar_forward(x, y, type, n)
 
     s = type(0.0)

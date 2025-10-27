@@ -1,4 +1,4 @@
-
+# Joel Kojma
 function get_float_max(x)
     type = typeof(x)
     multiplication_factor = type(2.0)

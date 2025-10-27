@@ -1,3 +1,5 @@
+// Joel Kojma
+
 #include <stdio.h>
 #include <float.h>
 

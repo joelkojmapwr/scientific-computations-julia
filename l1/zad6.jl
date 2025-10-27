@@ -1,3 +1,5 @@
+# Joel Kojma
+
 function f(x)
     type = typeof(x)
 
