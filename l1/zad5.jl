@@ -44,6 +44,8 @@ function scalar_descending(x, y, type, n)
         negative_sum = negative_sum + negative_products[i]
         # println("Negative Product $i: ", negative_products[i])
     end
+    # println("Negative sum: ", negative_sum)
+    # println("Positive sum: ", positive_sum)
 
     return positive_sum + negative_sum
 end
@@ -74,7 +76,9 @@ function scalar_ascending(x, y, type, n)
         # println("Negative Product $i: ", negative_products[l - i + 1])
     end
 
-    return positive_sum + negative_sum
+    sum = positive_sum + negative_sum
+
+    return sum
 end
 
 function aggregate(x_orig, y_orig, type, n)
@@ -98,7 +102,10 @@ end
 x = [2.718281828, -3.141592654, 1.414213562, 0.5772156649, 0.3010299957]
 y = [1486.2497, 878366.9879, -22.37492, 4773714.647, 0.000185049]
 
-aggregate(x, y, Float32, 5)
-println("\n")
-aggregate(x, y, Float64, 5)
-println("\n")
+# x = [2.0, 3.0]
+# y = [1.0, 5.0]
+println("Float32 results:")
+aggregate(x, y, Float32, length(x))
+println("")
+println("Float64 results:")
+aggregate(x, y, Float64, length(x))
