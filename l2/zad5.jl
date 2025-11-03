@@ -1,4 +1,4 @@
-
+# Joel Kojma
 
 function getNextPn(pn, r)
     nextpn = pn + r * pn * (pn / pn - pn)

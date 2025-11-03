@@ -1,3 +1,5 @@
+# Joel Kojma
+
 using Pkg
 Pkg.add("Polynomials")
 

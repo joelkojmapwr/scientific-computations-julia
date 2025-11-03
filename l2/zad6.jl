@@ -1,4 +1,4 @@
-
+# Joel Kojma
 using Plots
 
 

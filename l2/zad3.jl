@@ -1,3 +1,5 @@
+# Joel Kojma
+
 using Plots
 
 
