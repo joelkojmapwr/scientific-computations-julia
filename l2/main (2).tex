@@ -1,0 +1,287 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[polish]{babel} % Używamy języka polskiego
+\usepackage{amsmath}       % Do symboli matematycznych
+\usepackage{graphicx}
+\usepackage{booktabs}      % Do ładnych tabel (\toprule, \midrule, \bottomrule)
+\usepackage{pdflscape}
+\usepackage{multicol}
+
+\usepackage{geometry}      % Lepsze marginesy
+\geometry{a4paper, margin=2.5cm}
+\usepackage{siunitx}       % Do ładnego składu liczb naukowych
+\sisetup{
+    output-decimal-marker={,},  % Polski separator dziesiętny
+    exponent-product = \cdot,   % Znak mnożenia dla wykładnika
+    group-separator = {\,}      % Separator tysięcy
+}
+
+\title{Obliczenia Naukowe lista 2 - Sprawozdanie}
+\author{Joel Kojma}
+\date{October 2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zad 1}
+
+\subsection*{Wyniki dla danych z listy 1}
+\begin{verbatim}
+
+Dane:
+x = [2.718281828, -3.141592654, 1.414213562, 0.5772156649, 0.3010299957]
+y = [1486.2497, 878366.9879, -22.37492, 4773714.647, 0.000185049]
+Wyniki:
+Float32 results:
+Scalar forward: -0.4999443
+Scalar backwards: -0.4543457
+Scalar descending: -0.5
+Scalar ascending: -0.5
+
+Float64 results:
+Scalar forward: 1.0251881368296672e-10
+Scalar backwards: -1.5643308870494366e-10
+Scalar descending: 0.0
+Scalar ascending: 0.0
+\end{verbatim}
+
+\subsection*{Wyniki dla danych z listy 2}
+\begin{verbatim}
+Dane:
+x = [2.718281828, -3.141592654, 1.414213562, 0.577215664, 0.301029995]
+y = [1486.2497, 878366.9879, -22.37492, 4773714.647, 0.000185049]
+
+
+Wyniki:
+Float32 results:
+Scalar forward: -0.4999443
+Scalar backwards: -0.4543457
+Scalar descending: -0.5
+Scalar ascending: -0.5
+
+Float64 results:
+Scalar forward: -0.004296342739891585
+Scalar backwards: -0.004296342998713953
+Scalar descending: -0.004296342842280865
+Scalar ascending: -0.004296342842280865
+
+Condition number for method 1: Float32: 0.0, Float64: 6.250000282530739e8
+Condition number for method 2: Float32: 0.0, Float64: 6.249999905826769e8
+Condition number for method 3: Float32: 0.0, Float64: 6.250000133393987e8
+Condition number for method 4: Float32: 0.0, Float64: 6.250000133393987e8
+\end{verbatim}
+
+$cond(x) = 6.25 \cdot 10^8$  
+
+Wpływ lekkiej zmiany danych powoduje olbrzymie zmiany wyniku. Zadanie jest źle uwarunkowane.
+
+
+
+\section*{Zad 2}
+$f(x)=e^x ln(1+e^{(-x)})$
+
+\begin{figure}[h!] % 'h!' means "place here, if possible"
+    \centering
+    \includegraphics[width=1.0\textwidth]{geogebra_2.png}
+    \caption{Wykres funkcji f w programie GeoGebra}
+    \label{fig:example}
+\end{figure}
+
+\begin{figure}[h!] % 'h!' means "place here, if possible"
+    \centering
+    \includegraphics[width=1.0\textwidth]{wolfram_2.png}
+    \caption{Wykres funkcji f w programie Wolfram Alpha}
+    \label{fig:example}
+\end{figure}
+
+Granica funkcji f w nieskończoności to 1, natomiast na wykresach wygląda jakby funkcja dążyła do 0 w nieskończoności. 
+Wynika to z błędów zaokrągleń. Punkty na wykresie są liczone tylko z pewną dokładnością. Czynnik $ln(1 + e^{-x})$ zbiega do 0. Więc gdy już będzie bardzo mały, to liczby maszynowe zaokrąglą ją do zera. Wtedy czynnik $e^x$ nawet jeśli jest duży, przemnożony przez 0 daje 0.
+
+\section*{Zadanie 3}
+
+\begin{figure}[h!] % 'h!' means "place here, if possible"
+    \centering
+    \includegraphics[width=0.5\textwidth]{errors_hilbert_matrix.png}
+    \caption{Błąd względny rozwiązywania równania macierzy hilberta}
+    \label{fig:example}
+\end{figure}
+
+\begin{figure}[h!] % 'h!' means "place here, if possible"
+    \centering
+    \includegraphics[width=0.5\textwidth]{errors_random_matrix5.png}
+    \caption{Błąd względny rozwiązywania równania macierzy losowej dla n = 5}
+    \label{fig:example}
+\end{figure}
+\begin{figure}[h!] % 'h!' means "place here, if possible"
+    \centering
+    \includegraphics[width=0.5\textwidth]{errors_random_matrix10.png}
+    \caption{Błąd względny rozwiązywania równania macierzy losowej dla n = 10}
+    \label{fig:example}
+\end{figure}
+\begin{figure}[h!] % 'h!' means "place here, if possible"
+    \centering
+    \includegraphics[width=0.5\textwidth]{errors_random_matrix20.png}
+    \caption{Błąd względny rozwiązywania równania macierzy losowej dla n = 20}
+    \label{fig:example}
+\end{figure}
+
+\subsection*{Obserwacje}
+Wraz ze wzrostem cond(A), rośnie błąd względny obliczanego rozwiązania. 
+\textbf{Wniosek: Dla n > 12 zadanie jest źle uwarunkowane.}
+
+
+\section*{Zadanie 4: Analiza wrażliwości pierwiastków wielomianu}
+
+
+\begin{table}[htb!]
+\centering
+\caption{Porównanie wyników dla wielomianu oryginalnego i zaburzonego (wygenerowane przez Gemini)}
+\label{tab:porownanie}
+\scriptsize % Używamy bardzo małej czcionki, aby zmieścić tabelę
+\begin{tabular}{@{} l | c S[table-format=1.2e-2] S[table-format=1.2e-2] S[table-format=1.2e-2] | l S[table-format=1.4] S[table-format=1.2e-2] S[table-format=1.2e-2] @{}}
+\toprule
+ & \multicolumn{4}{c |}{\textbf{Współczynniki Oryginalne}} & \multicolumn{4}{c}{\textbf{Współczynniki Zaburzone}} \\
+\cmidrule(r){2-5} \cmidrule(l){6-9}
+$k$ & $x_{\text{oryg}}$ & {$|x_{\text{oryg}} - k|$} & {$|p(x_{\text{oryg}})|$} & {$|P(x_{\text{oryg}})|$} & $x_{\text{zab}}$ & {$|x_{\text{zab}} - k|$} & {$|p(x_{\text{zab}})|$} & {$|P(x_{\text{zab}})|$} \\
+\midrule
+1 & 0,9999999999997 & \num{3.01e-13} & \num{3.66e4} & \num{3.57e4} & 1,0000000000000 & \num{1.64e-13} & \num{1.99e4} & \num{2.02e4} \\
+2 & 2,0000000000283 & \num{2.83e-11} & \num{1.81e5} & \num{1.76e5} & 2,0000000000550 & \num{5.50e-11} & \num{3.52e5} & \num{3.46e5} \\
+3 & 2,9999999995921 & \num{4.08e-10} & \num{2.90e5} & \num{2.79e5} & 2,9999999966034 & \num{3.40e-9} & \num{2.41e6} & \num{2.25e6} \\
+4 & 3,9999999837375 & \num{1.63e-8} & \num{2.04e6} & \num{3.02e6} & 4,0000000897244 & \num{8.97e-8} & \num{1.12e7} & \num{1.05e7} \\
+5 & 5,0000006657698 & \num{6.66e-7} & \num{2.09e7} & \num{2.29e7} & 4,9999985738879 & \num{1.43e-6} & \num{4.47e7} & \num{3.75e7} \\
+6 & 5,9999892458248 & \num{1.08e-5} & \num{1.12e8} & \num{1.29e8} & 6,0000204766730 & \num{2.05e-5} & \num{2.14e8} & \num{1.31e8} \\
+7 & 7,0001020027930 & \num{1.02e-4} & \num{4.57e8} & \num{4.80e8} & 6,9996020704224 & \num{3.98e-4} & \num{1.78e9} & \num{3.93e8} \\
+8 & 7,9993558296078 & \num{6.44e-4} & \num{1.55e9} & \num{1.63e9} & 8,0077720290994 & \num{0.00777} & \num{1.86e10} & \num{1.18e9} \\
+9 & 9,0029152943621 & \num{0.00292} & \num{4.68e9} & \num{4.87e9} & 8,9158163679326 & \num{0.08418} & \num{1.37e11} & \num{2.22e9} \\
+10 & 9,9904130424817 & \num{0.00959} & \num{1.26e10} & \num{1.36e10} & 10,0955 - 0,6449i & \num{0.65196} & \num{1.49e12} & \num{1.06e10} \\
+11 & 11,0250229329093 & \num{0.02502} & \num{3.30e10} & \num{3.58e10} & 10,0955 + 0,6449i & \num{1.11092} & \num{1.49e12} & \num{1.06e10} \\
+12 & 11,9532832538469 & \num{0.04672} & \num{7.38e10} & \num{7.53e10} & 11,7939 - 1,6525i & \num{1.66528} & \num{3.29e13} & \num{3.14e10} \\
+13 & 13,0743140324473 & \num{0.07431} & \num{1.84e11} & \num{1.96e11} & 11,7939 + 1,6525i & \num{2.04582} & \num{3.29e13} & \num{3.14e10} \\
+14 & 13,9147555918021 & \num{0.08524} & \num{3.55e11} & \num{3.57e11} & 13,9924 - 2,5188i & \num{2.51884} & \num{9.54e14} & \num{2.15e11} \\
+15 & 15,0754937996995 & \num{0.07549} & \num{8.42e11} & \num{8.21e11} & 13,9924 + 2,5188i & \num{2.71288} & \num{9.54e14} & \num{2.15e11} \\
+16 & 15,9462867166080 & \num{0.05371} & \num{1.57e12} & \num{1.55e12} & 16,7307 - 2,8126i & \num{2.90600} & \num{2.74e16} & \num{4.85e11} \\
+17 & 17,0254271462374 & \num{0.02543} & \num{3.31e12} & \num{3.69e12} & 16,7307 + 2,8126i & \num{2.82548} & \num{2.74e16} & \num{4.85e11} \\
+18 & 17,9909213527165 & \num{0.00908} & \num{6.34e12} & \num{7.65e12} & 19,5024 - 1,9403i & \num{2.45402} & \num{4.25e17} & \num{4.55e12} \\
+19 & 19,0019098182994 & \num{0.00191} & \num{1.22e13} & \num{1.14e13} & 19,5024 + 1,9403i & \num{2.00433} & \num{4.25e17} & \num{4.55e12} \\
+20 & 19,9998092912366 & \num{1.91e-4} & \num{2.31e13} & \num{2.79e13} & 20,8469102151948 & \num{0.84691} & \num{1.37e18} & \num{8.75e12} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Obserwacje i wnioski}
+\subsection*{Wielomian niezaburzony}
+Obserwacje: Pierwiastki nie są dokładnie całkowite, są dokładne tylko do precyzji arytmetyki. 
+
+Teoretycznie, jeśli x jest miejscem zerowym to P(x) = 0, a obliczone P(x) są większe od 1, dla x=3 nawet równe  |p(x)| = 290172.2858891686 co jest bardzo dużo
+
+Wynika to z tego, że wielomian jest wysokiego stopnia. Gdy jeden czynnik się powinien całkowicie zerować, przez niedokładność arytmetyki, staje się bardzo mały, a pozostałe nawiasy, mnożą ten błąd tak, że staje się taki duży. 
+
+Wniosek: Obliczanie pierwiastków wielomianów wysokich stopni może być niedokładne, co może mieć dramatyczny wpływ na wartość wyrażeń w których go używamy. Algorytmy używające takich pierwiastków mogą być niestabilne. 
+
+\subsection*{Porównanie wielomianu zaburzonego z orginalnym}
+
+Obserwacje: Tak małe zaburzenia $2^{-23}$ jednego współczynnika ma wielki wpływ na wyniki.  Przez zaburzenie połowa pierwiastków stała się zespolona. Gdybyśmy szukali pierwiastków używając float32 to tam występuje taka niedokładność i bez manualnego zaburzania danych moglibyśmy znaleźć bardzo nieprawidłowe wyniki. 
+
+Wniosek: Obliczanie pierwiastków wielomianu Wilkinsona jest źle uwarunkowane.
+
+\section*{Zad 5}
+\begin{table}[htbp]
+\centering
+\caption{Porównanie wyników eksperymentów z uwzględnieniem błędu względnego}
+\label{tab:eksperymenty_pelne}
+\scriptsize % Zmniejszenie czcionki, aby zmieścić tabelę
+% Definicje kolumn siunitx dla precyzyjnego wyrównania
+\begin{tabular}{@{} c S[table-format=1.9] S[table-format=1.9] S[table-format=1.17] S[table-format=3.7] S[table-format=5.10e-1] @{}}
+\toprule
+% Nagłówki dla kolumn 'S' muszą być w nawiasach klamrowych
+\textbf{Iteracja} & {\textbf{Standard F32}} & {\textbf{Manipulated F32}} & {\textbf{Standard F64}} & {\textbf{rel f32 man_f32 (\%)}} & {\textbf{Rel f64 f32 (\%)}} \\
+\midrule
+1 & 0.0397 & 0.0397 & 0.0397 & 0.0 & 3.723413579977966e-6 \\
+2 & 0.15407173 & 0.15407173 & 0.15407173000000002 & 0.0 & 2.1778960604431905e-6 \\
+3 & 0.5450726 & 0.5450726 & 0.5450726260444213 & 0.0 & 1.9993270292596298e-6 \\
+4 & 1.2889781 & 1.2889781 & 1.2889780011888006 & 0.0 & 7.652124193374552e-6 \\
+5 & 0.1715188 & 0.1715188 & 0.17151914210917552 & 0.0 & 0.0001979174738604889 \\
+\addlinespace
+6 & 0.5978191 & 0.5978191 & 0.5978201201070994 & 0.0 & 0.0001723290231254782 \\
+7 & 1.3191134 & 1.3191134 & 1.3191137924137974 & 0.0 & 3.173777661671521e-5 \\
+8 & 0.056273222 & 0.056273222 & 0.056271577646256565 & 0.0 & 0.002922120574375339 \\
+9 & 0.21559286 & 0.21559286 & 0.21558683923263022 & 0.0 & 0.0027932794637748684 \\
+10 & 0.7229306 & 0.722 & 0.722914301179573 & 0.12872706 & 0.0022560074273682645 \\
+\addlinespace
+11 & 1.3238364 & 1.3241479 & 1.3238419441684408 & 0.023529636 & 0.0004153335716839491 \\
+12 & 0.037716985 & 0.036488414 & 0.03769529725473175 & 3.2573414 & 0.05753368639600657 \\
+13 & 0.14660022 & 0.14195944 & 0.14651838271355924 & 3.1655974 & 0.055852318354969455 \\
+14 & 0.521926 & 0.50738037 & 0.521670621435246 & 2.7869122 & 0.048951266834289256 \\
+15 & 1.2704837 & 1.2572169 & 1.2702617739350768 & 1.0442322 & 0.017473428941057766 \\
+\addlinespace
+16 & 0.2395482 & 0.28708452 & 0.24035217277824272 & 19.844154 & 0.3344951866271612 \\
+17 & 0.7860428 & 0.9010855 & 0.7881011902353041 & 14.635677 & 0.2611822916166874 \\
+18 & 1.2905813 & 1.1684768 & 0.12890943027903075 & 9.461204 & 0.11535562329616007 \\
+19 & 0.16552472 & 0.577893 & 0.17108484670194324 & 249.12791 & 3.2499228678036984 \\
+20 & 0.5799036 & 1.3096911 & 0.5965293124946907 & 125.84634 & 2.7870734172414995 \\
+\addlinespace
+21 & 1.3107498 & 0.09289217 & 1.3185755879825978 & 92.91305 & 0.5935055102723188 \\
+22 & 0.088804245 & 0.34568182 & 0.058377608259430724 & 289.26273 & 52.12038938024004 \\
+23 & 0.3315584 & 1.0242395 & 0.22328659759944824 & 208.91678 & 48.49006161479355 \\
+24 & 0.9964407 & 0.94975823 & 0.7435756763951792 & 4.6849227 & 34.006630430400364 \\
+25 & 1.0070806 & 1.0929108 & 1.315588346001072 & 8.5226755 & 23.450176643527552 \\
+\addlinespace
+26 & 0.9856885 & 0.7882812 & 0.07003529560277899 & 20.027351 & 1307.4167875973144 \\
+27 & 1.0280086 & 1.2889631 & 0.26542635452061003 & 25.384468 & 287.30463750087074 \\
+28 & 0.9416294 & 0.17157483 & 0.8503519690601384 & 81.778946 & 10.734077658547212 \\
+29 & 1.1065198 & 0.59798557 & 1.2321124623871897 & 45.95799 & 10.19327763618977 \\
+30 & 0.7529209 & 1.3191822 & 0.37414648963928676 & 75.208595 & 101.23693432032633 \\
+\addlinespace
+31 & 1.3110139 & 0.05600393 & 1.0766291714289444 & 95.728195 & 21.77024102518334 \\
+32 & 0.0877831 & 0.21460639 & 0.8291255674004515 & 144.47346 & 89.41256889519755 \\
+33 & 0.3280148 & 0.7202578 & 1.2541546500504441 & 119.5809 & 73.84574613676097 \\
+34 & 0.9892781 & 1.3247173 & 0.29790694147232066 & 33.907475 & 232.07620916451194 \\
+35 & 1.021099 & 0.034241438 & 0.9253821285571046 & 96.64661 & 10.343493769327875 \\
+\addlinespace
+36 & 0.95646656 & 0.13344833 & 1.1325322626697856 & 86.047775 & 15.546197921049727 \\
+37 & 1.0813814 & 0.48036796 & 0.6822410727153098 & 55.578304 & 58.50430051928359 \\
+38 & 0.81736827 & 1.2292118 & 1.3326056469620293 & 50.386536 & 38.66390474706096 \\
+39 & 1.2652004 & 0.3839622 & 0.0029091569028512065 & 69.65206 & 43390.27635019007 \\
+40 & 0.25860548 & 1.093568 & 0.011611238029748606 & 322.87115 & 2127.199886278542 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Obserwacje}
+\textbf{Porównanie ciągu orginalnego float32 z zmanipulowanym od 10 iteracji \\}
+Widzimy, że od 10 iteracji gdy obetniemy precyzję do 3 miejsc po przecinku. Błąd się kumuluje. W 10 iteracji to 0.13\%, w 12 iteracji już 3\% w 16 już 20\%, a w 19 iteracji już 249\%. 
+\textbf{Wnioski: } Algorytm jest niestabilny numerycznie, ponieważ mały błąd się kumuluje w kolejnych iteracjach i precyzja się gubi. 
+
+\textbf{Porównanie ciągu orginalnego float32 z orginalnym w precyzji float64 \\}
+Tutaj na początku błąd jest bardzo mały rzędu $10^{-6}\%$, ale z kolejnymi iteracjami się kumuluje i w 15 iteracji błąd względny wynosi już $0.02\%$. W 20 iteracji jest już prawie 3\% w 22 nagle mamy 52\% a w 26 nawet 1300\%! Tak duże błędy są bardzo niebezpieczne. Algorytm jest niestabilny numerycznie.
+
+\newpage
+\section*{Zad 6}
+
+\begin{figure}[h!] % 'h!' means "place here, if possible"
+    \centering
+    \includegraphics[width=1.0\textwidth]{ex6_c-1.png}
+    \caption{Wykres 40 kolejnych wartości ciągu $x_{n+1} = {x_n}^2 + c$ dla $c=-1$}
+    \label{fig:example}
+\end{figure}
+
+\begin{figure}[h!] % 'h!' means "place here, if possible"
+    \centering
+    \includegraphics[width=1.0\textwidth]{ex6_c-2.png}
+    \caption{Wykres 40 kolejnych wartości ciągu $x_{n+1} = {x_n}^2 + c$ dla $c=-2$}
+    \label{fig:example}
+\end{figure}
+
+\subsection*{Obserwacje}
+Ciąg o parametrach $c = -1 $ i $x_0 = 1$ od $x_1$ jest taki sam jak ciąg  $c = -1 $ i $x_0 = -1$ ponieważ kwadrat usuwa znak minus.
+
+Co ciekawe ciąg $c = -1 $ i $x_0 = 0.75$ zmierza do ciągów z c = 1 i c = -1
+
+Najciekawsze są jednak obserwacje z rysunku 3. 
+Przez pierwsze 20 iteracji, wygląda jakby ciągi o parametrach $c = -2 $ i $x_0 = 2$ i $c = -2 $ i $x_0 = 1.99999999999999$ wogóle się nie różniły. Jednak ten drobny błąd się kumuluje przez następne iteracje i eksploduje dla n > 20 (mamy zupełnie inne wyniki. \textbf{Wniosek? Algorytm jest niestabilny numerycznie.}
+ 
+\end{document}

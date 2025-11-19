@@ -2,3 +2,8 @@
 *.pdf
 *.zip
 .vscode/
+*.aux
+*.log
+*.fls
+*.gz
+*.fdb_latexmk
