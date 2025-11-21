@@ -50,6 +50,7 @@ function mstycznych(f, pf, x0::Float64, delta::Float64, epsilon::Float64, maxit:
     v = nothing # f(r)
     it = nothing # Number of iterations
     error = 0
+    x1 = x0
 
     v = f(x0)
     if abs(v) < epsilon
@@ -58,7 +59,7 @@ function mstycznych(f, pf, x0::Float64, delta::Float64, epsilon::Float64, maxit:
     for k in 1:maxit 
         pfx0 = pf(x0)
         if pfx0 == 0.0
-            return x1, v, k, 2
+            return x0, v, k, 2
         end
         x1 = x0 - v / pf(x0)
         v = f(x1)

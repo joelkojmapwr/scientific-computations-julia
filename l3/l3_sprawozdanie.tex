@@ -92,4 +92,35 @@ Dla tych przedziałów użyjemy metody bisekcji.
 \subsection*{Wyniki}
 $r_1 = 0.619140625 \rightarrow $ Algorytm wykonał 9 iteracji \\
 $r_2 = 1.51171875 \rightarrow $ Algorytm wykonał 8 iteracji \\
+
+\section*{Zad 6}
+\subsection*{Funkcja $f_1(x) = e^{1-x}-1$}
+\subsubsection*{Parametry wywołania}
+Łatwo można sprawdzić, że $f_1(0) > 0$ oraz $f_1(2) < 0$, więc miejsce zerowe znajduje się w przedziale $[0, 2]$. Miejsce zerowe znajduje się dokładnie w punkcie $x=1$.
+Dla bisekcji dobieramy przedział początkowy $[0, 3]$. Gdybym wziął $[0, 2]$, to algorytm wykonałby tylko 1 iterację (szczęśliwy przypadek).
+Dla metody stycznych wybieram punkt startowy $1.5$.
+Dla metody siecznych wybieram punkty początkowe $1.5$ oraz $2.0$.
+
+\subsubsection*{Wyniki}
+\begin{table}[h]
+\centering
+\begin{tabular}{cccc}
+\toprule
+algorytm & $r$ & $f(r)$ & iter \\
+\midrule
+m. bisekcji & $9.99996 \times 10^{-1}$ & $3.81470 \times 10^{-6}$ & 18 \\
+m. stycznych & $1.00000 \times 10^{0}$ & $1.52638 \times 10^{-9}$ & 4 \\
+m. siecznych & $1.00000 \times 10^{0}$ & $-3.42698 \times 10^{-6}$ & 5 \\
+\bottomrule
+\end{tabular}
+\caption{Wyniki dla funkcji $f_1(x) = e^{1-x}-1$}
+\end{table}
+
+\subsubsection*{Eksperyment w metodzie Newtona $x_0 \in (1, \infty)$}
+Dla punktów startowych większych od 5, liczba iteracji zaczyna rosnąć bardzo gwałtownie. Wynika to z faktu, że funkcja się zaczyna wypłaszczać, wobec tego trzeba tworzyć coraz więcej stycznych, a wartości do których doszedł algorytm są ujemne.
+
+\subsection*{Parametry wywołania dla funkcji $f_2(x) = xe^{-x}$}
+Łatwo sprawdzić, że $f_2(0) = 0$ więc to jest miejsce zerowe, które musimy znaleźć. 
+Funkcja w nieskończoności dąży do zera. 
+
 \end{document}
