@@ -27,6 +27,13 @@
 Będziemy szukać rozwiązania metodą bisekcji.
 Zamiast rekurencyjnie spróbuję wykonać zadanie iteracyjnie, aby zminimalizować liczbę wywołań funkcji.
 
+\section*{Zad 2}
+
+\subsection*{Działanie algorytmu metody siecznych}
+Zaczynamy od punktu początkowego $x_0$. Liczymy pochodną funkcji $f$ w tym punkcie i na jej podstawie wyliczamy styczną do funkcji w punkcie $x_0$.
+Następnie wyznaczamy punkt przecięcia tej stycznej z osią $X$ i oznaczamy go jako $x_1$.
+Następnie powtarzamy to samo dla punktu $x_1$ i kolejnych $x_n$.
+
 \section*{Zad 3}
 W metodzie siecznych musimy uważać na dzielenie przez zero.
 Czyli sytuację, kiedy $f(a) - f(b) = 0 \rightarrow$ Wtedy prosta wogóle nie przecina osi $X$. 
@@ -119,8 +126,41 @@ m. siecznych & $1.00000 \times 10^{0}$ & $-3.42698 \times 10^{-6}$ & 5 \\
 \subsubsection*{Eksperyment w metodzie Newtona $x_0 \in (1, \infty)$}
 Dla punktów startowych większych od 5, liczba iteracji zaczyna rosnąć bardzo gwałtownie. Wynika to z faktu, że funkcja się zaczyna wypłaszczać, wobec tego trzeba tworzyć coraz więcej stycznych, a wartości do których doszedł algorytm są ujemne.
 
-\subsection*{Parametry wywołania dla funkcji $f_2(x) = xe^{-x}$}
+\subsection*{Funkcja $f_2(x) = xe^{-x}$}
 Łatwo sprawdzić, że $f_2(0) = 0$ więc to jest miejsce zerowe, które musimy znaleźć. 
 Funkcja w nieskończoności dąży do zera. 
+\subsubsection*{Parametry wywołania}
+Dla bisekcji wybieram przedział początkowy $[-3.23, 1.433]$.
+Dla metody stycznych wybieram punkt startowy $0.5$.
+Dla metody siecznych wybieram punkty początkowe $0.5$ oraz $0.8$.
+
+\subsubsection*{Wyniki}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cccc}
+\toprule
+algorytm & $r$ & $f(r)$ & iter \\
+\midrule
+m. bisekcji & $4.08936 \times 10^{-6}$ & $4.08934 \times 10^{-6}$ & 14 \\
+m. stycznych & $-3.06425 \times 10^{-7}$ & $-3.06425 \times 10^{-7}$ & 5 \\
+m. siecznych & $-2.61460 \times 10^{-6}$ & $-2.61461 \times 10^{-6}$ & 8 \\
+\bottomrule
+\end{tabular}
+\caption{Wyniki dla funkcji $f_2(x) = xe^{-x}$}
+\end{table}
+
+\subsubsection*{Obserwacje}
+Najdokładniejsza jest metoda Newtona (stycznych).
+
+\subsubsection*{Eksperyment w metodzie Newtona $x_0 \ge 1$}
+Funkcja $f_2(x)$ ma maksimum lokalne w punkcie $x=1$. Dla $ x >1$ funkcja jest malejąca i zbiega do zera w nieskończoności. 
+Metoda Newtona zamiast zbiegać do $x=0$, będzie zbiegać do nieskończoności, ponieważ tam funkcja dąży do zera, ale nigdy do niego nie dociera.
+Podobnie dzieje się dla metody siecznych. \\
+Dla $x=1.0$ algorytm nie wykona się, ponieważ pochodna w tym punkcie jest równa zero, więc musielibyśmy podzielić przez zero, więc funkcja zwraca błąd.
+
+\subsubsection*{Wnioski}
+Metody stycznych Newtona i siecznych są szybsze niż metoda bisekcji, ale nie gwarantują nam zbieżności do miejsca zerowego.
+
 
 \end{document}

@@ -1,3 +1,5 @@
+# author: Joel Kojma
+
 include("root_finder.jl")
 
 using .RootFinder
