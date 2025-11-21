@@ -50,4 +50,40 @@ m. siecznych & $1.52138 \times 10^{0}$ & $-1.64365 \times 10^{-7}$ & 6 & $1.8176
 \caption{Wyniki dla wielomianu $f(x) = x^3 - x - 2$}
 \end{table}
 
+\section*{Zad 4}
+Funkcja $f(x) = \sin(x) - 0.25x^2$
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccccc}
+\toprule
+algorytm & $r$ & $f(r)$ & iter & błąd względny [\%] \\
+\midrule
+m. bisekcji & $1.93375 \times 10^{0}$ & $-2.70277 \times 10^{-7}$ & 16 & $1.057312 \times 10^{-5}$ \\
+m. stycznych & $1.93375 \times 10^{0}$ & $-2.24233 \times 10^{-8}$ & 4 & $8.771914 \times 10^{-7}$ \\
+m. siecznych & $1.93375 \times 10^{0}$ & $1.56453 \times 10^{-7}$ & 4 & $6.120361 \times 10^{-6}$ \\
+\bottomrule
+\end{tabular}
+\caption{Wyniki dla funkcji $f(x) = \sin(x) - 0.25x^2$}
+\end{table}
+
+\subsection*{Obserwacje}
+Metoda stycznych i siecznych są 4 razy szybsze od metody bisekcji.
+Podobnie wyszło również dla moich testów.
+Metoda siecznych jest szybsza od metody bisekcji nawet pomimo tego, że ma dwa razy większy przedział początkowy.
+
+\subsection*{Wniosek}
+Jeśli chcemy znaleźć miejsca zerowe funkcji na dużym przedziale w szybki sposób, to najlepiej używać metody stycznych albo siecznych.
+
+\section*{Zad 5}
+\subsection*{Plan rozwiązania}
+Chcemy znaleźć wartości $x$ dla których przecinają się funkcje $f(x) = 3x$ i $g(x) = e^x$
+\begin{align*}
+    \begin{cases}
+        y &= 3x \\
+        y &= e^x
+    \end{cases}
+    \Rightarrow 3x = e^x \Rightarrow e^x - 3x = 0
+\end{align*}
+Więc aby rozwiązać zadanie, wystarczy znaleźć miejsca zerowe funkcji $h(x) = e^x - 3x$.
 \end{document}
