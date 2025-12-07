@@ -1,3 +1,6 @@
+# Author: Joel Kojma
+
+
 include("ilorazy_roznicowe.jl")
 include("war_newton.jl")
 include("naturalna.jl")

@@ -1,3 +1,5 @@
+# Author: Joel Kojma
+
 include("rysuj_nnfx.jl")
 
 

@@ -1,3 +1,5 @@
+# Author: Joel Kojma
+
 module rysuj_nnfx
 
 export rysujNnfx

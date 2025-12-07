@@ -1,3 +1,5 @@
+# Author: Joel Kojma
+
 module war_newton
 
 export warNewton

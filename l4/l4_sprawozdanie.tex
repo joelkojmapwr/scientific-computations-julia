@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx} % Required for inserting images
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[polish]{babel} % Używamy języka polskiego
+\usepackage{amsmath}       % Do symboli matematycznych
+\usepackage{graphicx}
+\usepackage{booktabs}      % Do ładnych tabel (\toprule, \midrule, \bottomrule)
+\usepackage{pdflscape}
+\usepackage{multicol}
+
+\usepackage{geometry}      % Lepsze marginesy
+\geometry{a4paper, margin=1.5cm}
+
+\title{Obliczenia Naukowe lista 3 - Sprawozdanie}
+\author{Joel Kojma}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Zad 1}
+Obliczam ilorazy różnicowe, według wzorów podanych na wykładzie. W każdej iteracji trzymam tylko aktualy rząd ilorazów różnicowych -> Unikam tablicy dwuwymiarowej.\\
+W iteracji $k$ zapisuję do tablicy wynikowej wartość w pierwszej komórce tablicy ilorazów różnicowych -> $f[x_0, x_1, \dots , x_k]$\\
+
+\section*{Zad 2}
+Algorytm został zaimplementowany tak jak jest podany w Zadaniu 8 Listy 4 z ćwiczeń.\\
+
+\section*{Zad 3}
+Mamy wielomian w postaci Newtona:
+$$P(x) = c_0 + c_1(x-x_0) + c_2(x-x_0)(x-x_1) + \ldots + c_n(x-x_0)(x-x_1)\cdots(x-x_{n-1})$$
+
+gdzie $c_i = f[x_0, x_1, \ldots, x_i]$ to ilorazy różnicowe.\\
+Wiem, że algorytm na rozwiązanie bierze się z tej postaci Newtona i że możnaby ją przekształcić do postaci Hornera, ale nie udało mi się dokładnie zrozumieć skąd się to bierze.
+
+\section*{Zad 4}
+Pierwiastki Czebyszewa stopnia n wyliczamy ze wzoru: 
+$$x_j = \cos\left(\frac{(2j + 1)\pi}{2n}\right), \quad j = 0, 1, \ldots, n-1$$
+
+A następnie przeskalowujemy je do przedziału $[a, b]$ ze wzoru:
+$$x_j' = \frac{a + b}{2} + \frac{b - a}{2} x_j$$
+
+Wykres interpolowanej funkcji rysujemy na 1000 równomiernie rozmieszczonych punktach w przedziale $[a, b]$. Licząc wartość funkcji w punkcie używając funkcji warNewton.
+
+\section*{Testy funkcji 1-4}
+Funkcje zostały przetestowane dla funkcji $f(x) = x^2$ i zwracają prawidłowe wyniki.
+
+\section*{Zad 5}
+Obie interpolowane funkcje są bardzo dokładnie odwzorowane dla wszystkich $n=5, 10, 15$
+
+\section*{Zad 6}
+
+Zarówno dla funkcji $f(x) = |x|$ jak i $g(x) = \frac{1}{1 + x^2}$, gdy wybierzemy punkty równoodległe interpolacja działa poprawnie dla małych $n$, ale dla większych $n$ pojawiają się duże oscylacje przy krańcach przedziału (efekt Rungego).\\ 
+
+Natomiast gdy wybierzemy pierwiastki Czebyszewa jako punkty interpolacji, to nawet dla większych $n$ interpolacja działa bardzo dobrze i nie pojawiają się oscylacje przy krańcach przedziału.Funkcja staje się coraz dokładniej odwzorowywana wraz ze wzrostem $n$.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/abs_5_rownoodlegle.png}
+    \caption{Interpolacja funkcji $f(x) = |x|$ z węzłami równoodległymi dla $n=5$}
+    \label{fig:abs_5_rownoodlegle}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/abs_15_rownoodlegle.png}
+    \caption{Interpolacja funkcji $f(x) = |x|$ z węzłami równoodległymi dla $n=15$}
+    \label{fig:abs_15_rownoodlegle}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/abs_5_czebyszew.png}
+    \caption{Interpolacja funkcji $f(x) = |x|$ z węzłami będącymi pierwiastkami Czebyszewa dla $n=5$}
+    \label{fig:abs_5_czebyszew}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/abs_15_czebyszew.png}
+    \caption{Interpolacja funkcji $f(x) = |x|$ z węzłami będącymi pierwiastkami Czebyszewa dla $n=15$}
+    \label{fig:abs_15_czebyszew}
+\end{figure}
+\end{document}

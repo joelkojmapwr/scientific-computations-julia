@@ -1,3 +1,5 @@
+# Author: Joel Kojma
+
 module ilorazy_roznicowe
 export ilorazyRoznicowe
 
