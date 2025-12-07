@@ -33,11 +33,11 @@ function rysujNnfx(f, a::Float64, b::Float64, n::Int; wezly::Symbol = :rownoodle
     y = [f(xi) for xi in x]
 
     ilorazy = ilorazyRoznicowe(x, y)
-    print("Ilorazy: ", ilorazy)
+    # print("Ilorazy: ", ilorazy)
 
     x_plot = range(a, b, length=1000)
     y_plot = [f(xi) for xi in x_plot]
-    p1 = plot(x_plot, y_plot, label="f(x)", linewidth=2)
+    p1 = plot(x_plot, y_plot, label="f(x)", linewidth=2, size=(1400, 800))
 
     y_interpolated = [warNewton(x, ilorazy, xi) for xi in x_plot]
     plot!(p1, x_plot, y_interpolated, label="Interpolacja Newtona", linestyle=:dash, linewidth=2)
