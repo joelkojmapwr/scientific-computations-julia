@@ -1,16 +1,18 @@
 include("ilorazy_roznicowe.jl")
 include("war_newton.jl")
+include("naturalna.jl")
 
 using .ilorazy_roznicowe
 using .war_newton
+using .postac_naturalna
 
 # Test dla paraboli f(x) = x^2
 function test_parabola()
     println("Test dla paraboli f(x) = x^2")
     
     # Węzły równoodległe
-    x = [-2.0, -1.0, 0.0, 1.0, 2.0]
-    y = [4.0, 1.0, 0.0, 1.0, 4.0]  # x^2
+    x = [-2.0, 0.0, 2.0]
+    y = [4.0, 0.0, 4.0]  # x^2
     
     # Oblicz ilorazy różnicowe
     ilorazy = ilorazyRoznicowe(x, y)
@@ -22,6 +24,9 @@ function test_parabola()
         wartosc = warNewton(x, ilorazy, x[i])
         println("f($(x[i])) = $(y[i]), Newton: $wartosc, błąd: $(abs(y[i] - wartosc))")
     end
+
+    wspolczynniki_naturalna = naturalna(x, ilorazy)
+    println("Współczynniki w postaci naturalnej: ", wspolczynniki_naturalna)
     
     # Test w punktach pośrednich
     println("Sprawdzanie wartości w punktach pośrednich:")
