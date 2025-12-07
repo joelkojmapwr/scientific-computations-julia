@@ -1,10 +1,12 @@
 include("ilorazy_roznicowe.jl")
 include("war_newton.jl")
 include("naturalna.jl")
+include("rysuj_nnfx.jl")
 
 using .ilorazy_roznicowe
 using .war_newton
 using .postac_naturalna
+using .rysuj_nnfx
 
 # Test dla paraboli f(x) = x^2
 function test_parabola()
@@ -40,3 +42,5 @@ function test_parabola()
 end
 
 test_parabola()
+
+rysujNnfx(x -> x^2, -2.0, 2.0, 2, wezly=:rownoodlegle)
