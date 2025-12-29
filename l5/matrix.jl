@@ -103,7 +103,41 @@ function multiply(A::SparseMatrix, x::Vector{Float64})
     return result
 end
 
+function read_sparse_matrix(filename::String)
+    open(filename, "r") do file
+        # Read first line: n and l
+        first_line = readline(file)
+        parts = split(first_line)
+        n = parse(Int, parts[1])
+        l = parse(Int, parts[2])
 
-export SparseMatrix, Point
+        row_offsets, row_lengths = calculate_row_offsets_and_lengths(n, l)
+        
+        # Initialize data structure: data[j] contains all non-zero elements in row i
+        data = [Vector{Float32}(0.0, row_lengths[i]) for i in 1:n]
+
+        # Read remaining lines: i j value
+        for line in eachline(file)
+            if isempty(strip(line))
+                continue
+            end
+            parts = split(line)
+            i = parse(Int, parts[1])
+            j = parse(Int, parts[2])
+            value = parse(Float32, parts[3])
+
+            # Store value in row i
+            if (j < row_offsets[i] || j >= row_offsets[i] + row_lengths[i])
+                error("Index j=$j out of bounds for row $i")
+            end
+            data[i][j - row_offsets[i]] = value
+        end
+        
+        return SparseMatrix(n, l, data)
+    end
+end
+
+
+export SparseMatrix, Point, read_sparse_matrix
 
 end # module
