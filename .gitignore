@@ -8,3 +8,5 @@
 *.gz
 *.fdb_latexmk
 *.png
+matrixgen.jl
+l5/tests/
