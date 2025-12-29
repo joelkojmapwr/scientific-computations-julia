@@ -1,10 +1,5 @@
 module SparseMatrices 
 
-struct Point 
-    value::Float64
-    offset::Int # From 1 to n
-end
-
 function calculate_column_offsets_and_lengths(n::Int, l::Int)
     v::Int = div(n, l) # v = n / l
     column_offsets = Vector{Int}(0, l)
@@ -64,11 +59,50 @@ function calculate_row_offsets_and_lengths(n::Int, l::Int)
 end
 
 
+
 struct SparseMatrix
     n::Int
     l::Int
-    data::Vector{Vector{Point}}
+    column_offsets::Vector{Int}
+    column_lengths::Vector{Int}
+    row_offsets::Vector{Int}
+    row_lengths::Vector{Int}
+    data::Vector{Vector{Float32}}
 end
+
+function SparseMatrix(n::Int, l::Int, data::Vector{Vector{Float32}})
+    col_offs, col_lens = calculate_column_offsets_and_lengths(n, l)
+    row_offs, row_lens = calculate_row_offsets_and_lengths(n, l)
+
+    return SparseMatrix(
+        n,
+        l,
+        col_offs,
+        col_lens,
+        row_offs,
+        row_lens,
+        data
+    )
+end
+
+function multiply(A::SparseMatrix, x::Vector{Float64})
+    n = A.n
+    l = A.l
+    result = zeros(Float64, n)
+
+    for j in 1:n
+        col_offset = A.column_offsets[j]
+        col_length = A.column_lengths[j]
+        column_data = A.data[j]
+
+        for i in eachindex(column_data)
+            result[j] += column_data[i] * x[j + col_offset]
+        end
+    end
+
+    return result
+end
+
 
 export SparseMatrix, Point
 
