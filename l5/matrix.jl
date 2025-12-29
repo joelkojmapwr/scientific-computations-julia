@@ -2,8 +2,8 @@ module SparseMatrices
 
 function calculate_column_offsets_and_lengths(n::Int, l::Int)
     v::Int = div(n, l) # v = n / l
-    column_offsets = Vector{Int}(0, l)
-    column_lengths = Vector{Int}(0, l)
+    column_offsets = zeros(Int64, n)
+    column_lengths = zeros(Int64, n)
 
     for i in 1:(l-1) 
         column_offsets[i] = 0
@@ -31,8 +31,8 @@ end
 
 function calculate_row_offsets_and_lengths(n::Int, l::Int)
     v::Int = div(n, l) # v = n / l
-    row_offsets = Vector{Int}(0, n)
-    row_lengths = Vector{Int}(0, n)
+    row_offsets = zeros(Int64, n)
+    row_lengths = zeros(Int64, n)
 
     for i in 1:l
         row_offsets[i] = 0
@@ -51,7 +51,7 @@ function calculate_row_offsets_and_lengths(n::Int, l::Int)
     row_offsets[(v-1)*l + 1] = (v-2)*l
     row_lengths[(v-1)*l + 1] = 2 * l + 1
     for i in 2:l
-        row_offsets[(v-1)*l + i] = (v-2)*l - 1
+        row_offsets[(v-1)*l + i] = (v-1)*l - 1
         row_lengths[(v-1)*l + i] = l + 1 # Ak + Bk
     end
 
@@ -112,9 +112,12 @@ function read_sparse_matrix(filename::String)
         l = parse(Int, parts[2])
 
         row_offsets, row_lengths = calculate_row_offsets_and_lengths(n, l)
+
+        println("Row Offsets: ", row_offsets)
+        println("Row Lengths: ", row_lengths)
         
         # Initialize data structure: data[j] contains all non-zero elements in row i
-        data = [Vector{Float32}(0.0, row_lengths[i]) for i in 1:n]
+        data = [zeros(Float32, row_lengths[i]) for i in 1:n]
 
         # Read remaining lines: i j value
         for line in eachline(file)
@@ -127,7 +130,7 @@ function read_sparse_matrix(filename::String)
             value = parse(Float32, parts[3])
 
             # Store value in row i
-            if (j < row_offsets[i] || j >= row_offsets[i] + row_lengths[i])
+            if (j < row_offsets[i] || j > row_offsets[i] + row_lengths[i])
                 error("Index j=$j out of bounds for row $i")
             end
             data[i][j - row_offsets[i]] = value
