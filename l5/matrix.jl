@@ -23,11 +23,18 @@ function calculate_column_offsets_and_lengths(n::Int, l::Int)
             column_offsets[(k-1)*l+i] = i - 1 + (k-2)*l
             column_lengths[(k-1)*l+i] = 2*l + 2 - i
         end
-        column_lengths[2*l] = 2*l + 1
+        column_lengths[k*l] = 2*l + 1
+    end
 
+    for i in 1:l
+        column_offsets[(v-1)*l + i] = i - 1 + (v-2)*l
+        column_lengths[(v-1)*l + i] = 2*l + 1 - i
+    end
 
-
+    return column_offsets, column_lengths
 end
+
+
 
 struct SparseMatrix
     n::Int
