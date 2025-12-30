@@ -7,10 +7,11 @@ function gauss_elimination(A, b::Vector{Float64})
         for i in (k+1):n 
             # Skip to next column 
             if A.row_offsets[i] > (k-1)
+                println("Skipping row $i at column $k")
                 break
             end
             I_factor = A.data[i][k - A.row_offsets[i]] / A.data[k][k - A.row_offsets[k]]
-            for j in (k+1):(A.row_offsets[k] + A.row_lengths[k]) # We need only to process to row lenghts of k, because the rest is zero and doesn't change the value when calculating A.data[i][idx_row_i] -= I_factor * A.data[k][idx_row_k] (0)
+            for j in k:(A.row_offsets[k] + A.row_lengths[k]) # We need only to process to row lenghts of k, because the rest is zero and doesn't change the value when calculating A.data[i][idx_row_i] -= I_factor * A.data[k][idx_row_k] (0)
                 idx_row_i = j - A.row_offsets[i]
                 idx_row_k = j - A.row_offsets[k]
 
@@ -30,9 +31,7 @@ function gauss_elimination(A, b::Vector{Float64})
         end
 
     end 
-    println("Matrix after gauss_elimination")
-    display(A.data)
-
+    
 end
 
 end # module

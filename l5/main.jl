@@ -13,4 +13,8 @@ b = SparseMatrices.read_b("tests/Dane16_1_1/b.txt")
 display(A.data)
 display(b)
 
+display_matrix(A)
+
 Gauss.gauss_elimination(A, b)
+
+display_matrix(A)

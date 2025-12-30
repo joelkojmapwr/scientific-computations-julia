@@ -156,7 +156,35 @@ function read_b(filename::String)
     return b
 end
 
+function to_dense_matrix(A::SparseMatrix)
+    n = A.n
+    dense = zeros(Float64, n, n)
+    
+    for i in 1:n
+        row_offset = A.row_offsets[i]
+        row_length = A.row_lengths[i]
+        row_data = A.data[i]
+        
+        for j in 1:row_length
+            col_idx = row_offset + j
+            if col_idx >= 1 && col_idx <= n
+                dense[i, col_idx] = row_data[j]
+            else
+                error("Column index $col_idx out of bounds for dense matrix")
+            end
+            
+        end
+    end
+    
+    return dense
+end
 
-export SparseMatrix, Point, read_sparse_matrix, read_b
+function display_matrix(A::SparseMatrix)
+    dense = to_dense_matrix(A)
+    println("Dense Matrix (n=$(A.n)):")
+    display(dense)
+end
+
+export SparseMatrix, Point, read_sparse_matrix, read_b, to_dense_matrix, display_matrix
 
 end # module
