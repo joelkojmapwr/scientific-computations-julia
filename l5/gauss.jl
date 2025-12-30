@@ -14,8 +14,11 @@ function gauss_elimination(A, b::Vector{Float64})
                 idx_row_i = j - A.row_offsets[i]
                 idx_row_k = j - A.row_offsets[k]
 
-                if idx_row_i > A.row_lengths[i] || idx_row_k > A.row_lengths[k]
-                    error("Row index at row $i or $k out of bounds. J=$j")
+                if idx_row_i > A.row_lengths[i]
+                    error("Row index at row i: $i out of bounds. J=$j")
+                end
+                if  idx_row_k > A.row_lengths[k]
+                    error("Row index at row k: $k out of bounds. J=$j")
                 end
                 
                 A.data[i][idx_row_i] -= I_factor * A.data[k][idx_row_k]
