@@ -72,6 +72,7 @@ struct SparseMatrix
     data::Vector{Vector{Float64}}
 end
 
+# Constructor for SparseMatrix
 function SparseMatrix(n::Int, l::Int, data::Vector{Vector{Float64}})
     col_offs, col_lens = calculate_column_offsets_and_lengths(n, l)
     row_offs, row_lens = calculate_row_offsets_and_lengths(n, l)
@@ -87,6 +88,7 @@ function SparseMatrix(n::Int, l::Int, data::Vector{Vector{Float64}})
     )
 end
 
+# Matrix-vector multiplication: result = A * x
 function multiply(A::SparseMatrix, x::Vector{Float64})
     n = A.n
     l = A.l
@@ -105,6 +107,7 @@ function multiply(A::SparseMatrix, x::Vector{Float64})
     return result
 end
 
+# Reads matrix data from file and returns a SparseMatrix object
 function read_sparse_matrix(filename::String)
     open(filename, "r") do file
         # Read first line: n and l
@@ -158,6 +161,7 @@ function read_b(filename::String)
     return b
 end
 
+# Convert SparseMatrix to dense matrix for display and debugging purposes
 function to_dense_matrix(A::SparseMatrix)
     n = A.n
     dense = zeros(Float64, n, n)
@@ -187,6 +191,7 @@ function display_matrix(A::SparseMatrix)
     display(dense)
 end
 
+# Save solution vector x to file
 function save_solution(x::Vector{Float64}, filename::String)
     open(filename, "w") do file
         # println(file, length(x))
@@ -196,6 +201,6 @@ function save_solution(x::Vector{Float64}, filename::String)
     end
 end
 
-export SparseMatrix, Point, read_sparse_matrix, read_b, to_dense_matrix, display_matrix
+export SparseMatrix, Point, read_sparse_matrix, read_b, to_dense_matrix, display_matrix, save_solution
 
 end # module

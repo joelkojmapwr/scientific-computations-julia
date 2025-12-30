@@ -22,6 +22,7 @@ end
 
 for n in test_sizes
     println("Testing for n = $n")
+    start_time = time()
     filename = "tests/Dane$(n)_1_1/A.txt"
     A = SparseMatrices.read_sparse_matrix(filename)
 
@@ -47,4 +48,6 @@ for n in test_sizes
 
     println("Solution x saving to file")
     SparseMatrices.save_solution(x, "tests/Dane$(n)_1_1/x.txt")
+    end_time = time()
+    println("Time taken for n = $n : $(end_time - start_time) seconds")
 end

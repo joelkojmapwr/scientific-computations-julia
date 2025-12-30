@@ -23,6 +23,8 @@ function find_max_in_column(A, col::Int, start_row::Int)
     return max_row
 end
 
+
+# Performs Gaussian elimination on matrix A and vector b
 function gauss_elimination(A, b::Vector{Float64}, use_partial_pivoting::Bool=false)
     n = A.n
     
@@ -70,6 +72,9 @@ function gauss_elimination(A, b::Vector{Float64}, use_partial_pivoting::Bool=fal
     
 end
 
+
+# Input: Upper triangular matrix A in SparseMatrix format and vector b
+# Output: Solution vector x such that Ax = b
 function get_solution_from_triangle_matrix(A, b::Vector{Float64})
     n = A.n
     x = Vector{Float64}(undef, n)
