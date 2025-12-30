@@ -34,4 +34,22 @@ function gauss_elimination(A, b::Vector{Float64})
     
 end
 
+function get_solution_from_triangle_matrix(A, b::Vector{Float64})
+    n = A.n
+    x = Vector{Float64}(undef, n)
+    
+    x[n] = b[n] / A.data[n][n - A.row_offsets[n]]
+
+    for k in (n-1):-1:1
+        sum_ax = 0.0
+        for j in (k+1):(A.row_offsets[k] + A.row_lengths[k])
+            idx_row_k = j - A.row_offsets[k]
+            sum_ax += A.data[k][idx_row_k] * x[j]
+        end
+        x[k] = (b[k] - sum_ax) / A.data[k][k - A.row_offsets[k]]
+    end
+
+    return x
+end
+
 end # module
