@@ -96,7 +96,7 @@ function multiply(A::SparseMatrix, x::Vector{Float64})
         column_data = A.data[j]
 
         for i in eachindex(column_data)
-            result[j] += column_data[i] * x[j + col_offset]
+            result[j] += column_data[i] * x[i + col_offset]
         end
     end
 
