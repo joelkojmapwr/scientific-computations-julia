@@ -3,10 +3,12 @@
 include("matrix.jl")
 include("gauss.jl")
 
-using .SparseMatrices
+using .blocksys
 using .Gauss
 
-test_sizes = [16, 10000, 50000, 100000, 500000, 750000, 1000000]
+test_sizes = [100, 10000, 50000, 100000, 500000, 750000, 1000000]
+
+test_dir = "my_tests/"
 
 println("Usage: <program> <1/0> (1 if you want to read b from file, 0 to calculate via multiplication with 1 vector) <1/0> (1 if you want to run gauss with partial pivoting, 0 otherwise)")
 
@@ -23,22 +25,24 @@ end
 for n in test_sizes
     println("Testing for n = $n")
     start_time = time()
-    filename = "tests/Dane$(n)_1_1/A.txt"
-    A = SparseMatrices.read_sparse_matrix(filename)
+    filename = "$(test_dir)Dane$(n)_1_1/A.txt"
+    A = blocksys.read_sparse_matrix(filename)
 
     if read_b_from_file == false
         println("Calculating b via multiplication with 1 vector")
         ones_vector = ones(Float64, n)
-        b = SparseMatrices.multiply(A, ones_vector)
+        b = blocksys.multiply(A, ones_vector)
     else
         println("Reading b from file")
-        b = SparseMatrices.read_b("tests/Dane$(n)_1_1/b.txt")
+        b = blocksys.read_b("tests/Dane$(n)_1_1/b.txt")
     end
 
     # display(A.data)
     # display(b)
 
     # display_matrix(A)
+
+    println("Number of elements held in matrix data: ", sum(A.row_lengths[i] for i in 1:n))
 
     Gauss.gauss_elimination(A, b)
 
@@ -47,7 +51,7 @@ for n in test_sizes
     x = Gauss.get_solution_from_triangle_matrix(A, b)
 
     println("Solution x saving to file")
-    SparseMatrices.save_solution(x, "tests/Dane$(n)_1_1/x.txt")
+    blocksys.save_solution(x, "$(test_dir)Dane$(n)_1_1/x.txt")
     end_time = time()
     println("Time taken for n = $n : $(end_time - start_time) seconds")
 end

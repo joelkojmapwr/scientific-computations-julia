@@ -1,6 +1,6 @@
 # Author: Joel Kojma
 
-module SparseMatrices 
+module blocksys 
 
 function calculate_column_offsets_and_lengths(n::Int, l::Int)
     v::Int = div(n, l) # v = n / l

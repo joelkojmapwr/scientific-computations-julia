@@ -27,5 +27,26 @@
     \item Będziemy przechowywać macierz w postaci listy wektorów. Każdy wektor będzie odpowiadał jednemu wierszowi macierzy i będzie zawierał wartości od pierwszego niezerowego elementu w wierszu do ostatniego niezerowego elementu w wierszu. W ten sposób przechowujemy tylko niezerowe elementy macierzy. Dodatkowo będziemy używać tablicy offsetów (przesunięć), która mówi ile początkowych zer jest w każdym wierszu. Również będziemy mieli wektor długości wierszy - przechowuje długość tablicy.
 \end{enumerate}
 
+\section*{Złożoność pamięciowa}
+\begin{enumerate}
+    \item Tablice \texttt{row\_offsets} i \texttt{row\_lengths} służące do przeliczania indeksów mają rozmiar $n$.
+    \item W każdym wierszu pamiętamy elementy macierzy $A_k$, których jest dokładnie $l$, z macierzy $C_k$ pamiętamy aż do elementu niezerowego na przekątnej, więc średnio jest to $l/2$ elementów na wiersz. W macierzy $B_k$ pamiętamy dokładnie średnio na wiersz $\left(\dfrac{2l-1}{l^2}\right) \simeq \frac{2}{l}$ elementów. \\ Zatem złożoność pamięciowa naszej implementacji eliminacji Gaussa wynosi: $O(n \cdot l)$, więc jeśli $l$ jest stałe, to złożoność pamięciowa jest liniowa względem rozmiaru macierzy $n$.
+\end{enumerate}
+
+\section*{Złożoność Obliczeniowa}
+\begin{enumerate}
+    \item Eliminacja Gaussa: Doprowadzenie do postaci macierzy trójkątnej górnej:
+    \begin{itemize}
+        \item Przechodzimy po wszystkich kolumnach macierzy ($n$ kolumn)
+        \item Dla każdej kolumny przechodzimy przez wszystkie wiersze poniżej przekątnej (z własności macierzy jest ich nie więcej niż $l$). W każdym wierszu wykonujemy eliminację gaussa. Mnożymy nie więcej niż $2l$ razy, ponieważ nie musimy mnożyć przez elementy równe zero ponieważ nic nie zmieniają.
+        \item Zatem złożoność obliczeniowa eliminacji Gaussa wynosi $O(n \cdot l \cdot 2l) = O(n \cdot l^2)$, więc jeśli $l$ jest stałe, to złożoność obliczeniowa jest liniowa względem rozmiaru macierzy $n$.
+        \item Dla wariantu z częściowym wyborem elementu głównego, dodatkowo w każdej kolumnie musimy znaleźć maksymalny element w kolumnie spośród nie więcej niż $l$ elementów, lecz dla stałego $l$ złożność dalej pozostaje $O(n)$ liniowa.
+    \end{itemize}
+    \item Znalezienie rozwiązania wektora $x$ z macierzy trójkątnej górnej:
+    \begin{itemize}
+        \item W każdym wierszu wykonujemy sumę nie więcej niż $2l$ elementów.
+        \item Zatem złożoność obliczeniowa wynosi $O(n \cdot 2l) = O(n \cdot l)$, więc jeśli $l$ jest stałe, to złożoność obliczeniowa jest liniowa względem rozmiaru macierzy $n$.
+    \end{itemize}
+\end{enumerate}
 
 \end{document}
