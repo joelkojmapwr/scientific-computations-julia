@@ -4,22 +4,27 @@ include("gauss.jl")
 using .SparseMatrices
 using .Gauss
 
+test_sizes = [16, 10000, 50000, 100000, 500000, 750000, 1000000]
 
-filename = "tests/Dane50000_1_1/A.txt"
-A = SparseMatrices.read_sparse_matrix(filename)
 
-b = SparseMatrices.read_b("tests/Dane50000_1_1/b.txt")
+for n in test_sizes
+    println("Testing for n = $n")
+    filename = "tests/Dane$(n)_1_1/A.txt"
+    A = SparseMatrices.read_sparse_matrix(filename)
 
-# display(A.data)
-# display(b)
+    b = SparseMatrices.read_b("tests/Dane$(n)_1_1/b.txt")
 
-# display_matrix(A)
+    # display(A.data)
+    # display(b)
 
-Gauss.gauss_elimination(A, b)
+    # display_matrix(A)
 
-# display_matrix(A)
+    Gauss.gauss_elimination(A, b)
 
-x = Gauss.get_solution_from_triangle_matrix(A, b)
+    # display_matrix(A)
 
-println("Solution x:")
-display(x)
+    x = Gauss.get_solution_from_triangle_matrix(A, b)
+
+    println("Solution x saving to file")
+    SparseMatrices.save_solution(x, "tests/Dane$(n)_1_1/x.txt")
+end

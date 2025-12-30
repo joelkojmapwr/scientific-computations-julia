@@ -113,8 +113,8 @@ function read_sparse_matrix(filename::String)
 
         row_offsets, row_lengths = calculate_row_offsets_and_lengths(n, l)
 
-        println("Row Offsets: ", row_offsets)
-        println("Row Lengths: ", row_lengths)
+        # println("Row Offsets: ", row_offsets)
+        # println("Row Lengths: ", row_lengths)
         
         # Initialize data structure: data[j] contains all non-zero elements in row i
         data = [zeros(Float64, row_lengths[i]) for i in 1:n]
@@ -183,6 +183,15 @@ function display_matrix(A::SparseMatrix)
     dense = to_dense_matrix(A)
     println("Dense Matrix (n=$(A.n)):")
     display(dense)
+end
+
+function save_solution(x::Vector{Float64}, filename::String)
+    open(filename, "w") do file
+        # println(file, length(x))
+        for value in x
+            println(file, value)
+        end
+    end
 end
 
 export SparseMatrix, Point, read_sparse_matrix, read_b, to_dense_matrix, display_matrix

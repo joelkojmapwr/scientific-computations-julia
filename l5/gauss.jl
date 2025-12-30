@@ -7,7 +7,7 @@ function gauss_elimination(A, b::Vector{Float64})
         for i in (k+1):n 
             # Skip to next column 
             if A.row_offsets[i] > (k-1)
-                println("Skipping row $i at column $k")
+                # println("Skipping row $i at column $k")
                 break
             end
             I_factor = A.data[i][k - A.row_offsets[i]] / A.data[k][k - A.row_offsets[k]]
