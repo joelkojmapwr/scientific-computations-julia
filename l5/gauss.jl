@@ -1,9 +1,45 @@
+# Author: Joel Kojma
+
 module Gauss 
 
-function gauss_elimination(A, b::Vector{Float64})
+# Returns the row index of the maximum absolute value in column 'col' starting from 'start_row'
+function find_max_in_column(A, col::Int, start_row::Int)
+    n = A.n
+    max_row = start_row
+    max_value = abs(A.data[start_row][col - A.row_offsets[start_row]])
+    
+    for i in (start_row+1):n
+        if A.row_offsets[i] >= col
+            break
+        else
+            current_value = abs(A.data[i][col - A.row_offsets[i]])
+            if current_value > max_value
+                max_value = current_value
+                max_row = i
+            end
+        end
+    end
+    
+    return max_row
+end
+
+function gauss_elimination(A, b::Vector{Float64}, use_partial_pivoting::Bool=false)
     n = A.n
     
     for k in 1:(n-1)
+        
+        if use_partial_pivoting == true
+            max_row = find_max_in_column(A, k, k)
+            if max_row != k
+                # Swap rows in A
+                A.data[k], A.data[max_row] = A.data[max_row], A.data[k]
+                A.row_offsets[k], A.row_offsets[max_row] = A.row_offsets[max_row], A.row_offsets[k]
+                A.row_lengths[k], A.row_lengths[max_row] = A.row_lengths[max_row], A.row_lengths[k]
+                # Swap corresponding entries in b
+                b[k], b[max_row] = b[max_row], b[k]
+            end
+        end
+
         for i in (k+1):n 
             # Skip to next column 
             if A.row_offsets[i] > (k-1)

@@ -1,3 +1,5 @@
+# Author: Joel Kojma
+
 include("matrix.jl")
 include("gauss.jl")
 

@@ -1,3 +1,5 @@
+# Author: Joel Kojma
+
 module SparseMatrices 
 
 function calculate_column_offsets_and_lengths(n::Int, l::Int)
