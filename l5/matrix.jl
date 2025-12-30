@@ -67,10 +67,10 @@ struct SparseMatrix
     column_lengths::Vector{Int}
     row_offsets::Vector{Int}
     row_lengths::Vector{Int}
-    data::Vector{Vector{Float32}}
+    data::Vector{Vector{Float64}}
 end
 
-function SparseMatrix(n::Int, l::Int, data::Vector{Vector{Float32}})
+function SparseMatrix(n::Int, l::Int, data::Vector{Vector{Float64}})
     col_offs, col_lens = calculate_column_offsets_and_lengths(n, l)
     row_offs, row_lens = calculate_row_offsets_and_lengths(n, l)
 
@@ -117,7 +117,7 @@ function read_sparse_matrix(filename::String)
         println("Row Lengths: ", row_lengths)
         
         # Initialize data structure: data[j] contains all non-zero elements in row i
-        data = [zeros(Float32, row_lengths[i]) for i in 1:n]
+        data = [zeros(Float64, row_lengths[i]) for i in 1:n]
 
         # Read remaining lines: i j value
         for line in eachline(file)
@@ -127,7 +127,7 @@ function read_sparse_matrix(filename::String)
             parts = split(line)
             i = parse(Int, parts[1])
             j = parse(Int, parts[2])
-            value = parse(Float32, parts[3])
+            value = parse(Float64, parts[3])
 
             # Store value in row i
             if (j < row_offsets[i] || j > row_offsets[i] + row_lengths[i])
@@ -140,7 +140,23 @@ function read_sparse_matrix(filename::String)
     end
 end
 
+function read_b(filename::String)
+    b = Float64[]
+    open(filename, "r") do file
+        first_line = readline(file)
+        n = parse(Int, strip(first_line))
+        b = Vector{Float64}(undef, n)
+        idx = 1
+        for line in eachline(file)
+            value = parse(Float64, strip(line))
+            b[idx] = value
+            idx += 1
+        end
+    end
+    return b
+end
 
-export SparseMatrix, Point, read_sparse_matrix
+
+export SparseMatrix, Point, read_sparse_matrix, read_b
 
 end # module

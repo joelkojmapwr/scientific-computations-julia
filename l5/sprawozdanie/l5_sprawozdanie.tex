@@ -24,7 +24,7 @@
 
 \section*{Pomysł na implementację eliminacji Gaussa dla macierzy rzadkich}
 \begin{enumerate}
-    \item Będziemy przechowywać macierz w postaci listy wektorów. Każdy wektor będzie odpowiadał jednemu wierszowi macierzy i będzie zawierał pary (indeks kolumny, wartość). W ten sposób przechowujemy tylko niezerowe elementy macierzy.
+    \item Będziemy przechowywać macierz w postaci listy wektorów. Każdy wektor będzie odpowiadał jednemu wierszowi macierzy i będzie zawierał wartości od pierwszego niezerowego elementu w wierszu do ostatniego niezerowego elementu w wierszu. W ten sposób przechowujemy tylko niezerowe elementy macierzy. Dodatkowo będziemy używać tablicy offsetów (przesunięć), która mówi ile początkowych zer jest w każdym wierszu. Również będziemy mieli wektor długości wierszy - przechowuje długość tablicy.
 \end{enumerate}
 
 
