@@ -33,7 +33,7 @@
     \item W każdym wierszu pamiętamy elementy macierzy $A_k$, których jest dokładnie $l$, z macierzy $C_k$ pamiętamy aż do elementu niezerowego na przekątnej, więc średnio jest to $l/2$ elementów na wiersz. W macierzy $B_k$ pamiętamy dokładnie średnio na wiersz $\left(\dfrac{2l-1}{l^2}\right) \simeq \frac{2}{l}$ elementów. \\ Zatem złożoność pamięciowa naszej implementacji eliminacji Gaussa wynosi: $O(n \cdot l)$, więc jeśli $l$ jest stałe, to złożoność pamięciowa jest liniowa względem rozmiaru macierzy $n$.
 \end{enumerate}
 
-\section*{Złożoność Obliczeniowa}
+\section*{Złożoność obliczeniowa}
 \begin{enumerate}
     \item Eliminacja Gaussa: Doprowadzenie do postaci macierzy trójkątnej górnej:
     \begin{itemize}
@@ -48,5 +48,21 @@
         \item Zatem złożoność obliczeniowa wynosi $O(n \cdot 2l) = O(n \cdot l)$, więc jeśli $l$ jest stałe, to złożoność obliczeniowa jest liniowa względem rozmiaru macierzy $n$.
     \end{itemize}
 \end{enumerate}
+
+\section*{Testy czasu działania}
+Obliczoną złożoność czasową potwierdzają testy czasu działania programu.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{image.png}
+    \caption{Porównanie czasu działania algorytmu eliminacji Gaussa dla macierzy A dla l=4 oraz l=10 w zależności od rozmiaru macierzy n.}
+    \label{fig:times_plot}
+\end{figure}
+
+\subsection*{Obserwacje i wnioski}
+Widzimy, że czas działania algorytmu rośnie liniowo wraz ze wzrostem rozmiaru macierzy $n$.
+Dla większej wartości $l$ czas działania jest większy, co również zgadza się z wyliczoną złożonością czasową $O(n \cdot l^2)$.
+
+\textbf{Wniosek:} Im gęstsza macierz (większe $l$), tym większa złożoność czasowa i pamięciowa, a co za tym idzie dłuższy czas działania algorytmu.
 
 \end{document}

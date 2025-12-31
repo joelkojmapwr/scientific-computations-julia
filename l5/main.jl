@@ -5,10 +5,11 @@ include("gauss.jl")
 
 using .blocksys
 using .Gauss
+using LinearAlgebra
 
-test_sizes = [100, 10000, 50000, 100000, 500000, 750000, 1000000]
+test_sizes = [16, 10000, 50000, 100000, 500000, 750000, 1000000]
 
-test_dir = "my_tests/"
+test_dir = "tests/"
 
 println("Usage: <program> <1/0> (1 if you want to read b from file, 0 to calculate via multiplication with 1 vector) <1/0> (1 if you want to run gauss with partial pivoting, 0 otherwise)")
 
@@ -49,6 +50,10 @@ for n in test_sizes
     # display_matrix(A)
 
     x = Gauss.get_solution_from_triangle_matrix(A, b)
+
+    error = norm(x .- ones(Float64, n), Inf)
+
+    println("Infinity norm of error ||x - 1||_inf = $error")
 
     println("Solution x saving to file")
     blocksys.save_solution(x, "$(test_dir)Dane$(n)_1_1/x.txt")
