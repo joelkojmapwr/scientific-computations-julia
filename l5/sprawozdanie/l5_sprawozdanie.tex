@@ -33,6 +33,10 @@
     \item W każdym wierszu pamiętamy elementy macierzy $A_k$, których jest dokładnie $l$, z macierzy $C_k$ pamiętamy aż do elementu niezerowego na przekątnej, więc średnio jest to $l/2$ elementów na wiersz. W macierzy $B_k$ pamiętamy dokładnie średnio na wiersz $\left(\dfrac{2l-1}{l^2}\right) \simeq \frac{2}{l}$ elementów. \\ Zatem złożoność pamięciowa naszej implementacji eliminacji Gaussa wynosi: $O(n \cdot l)$, więc jeśli $l$ jest stałe, to złożoność pamięciowa jest liniowa względem rozmiaru macierzy $n$.
 \end{enumerate}
 
+\subsection*{Zmiany w złożoności pamięciowej!!!}
+Dla pierwszego rzędu $B_k$ musimy zaalokować miejsce na aż do $3l$ elementów, natomiast w pozostałych miejscach potrzebujemy $2l+1$ elementów. Jest to spowodowane tym, że gdy zamieniamy wiersze i wykonujemy eliminację gaussa, to potrzebujemy aktualizować, także te "zerowe" elementy.
+Nie ma to jednak wpływu na złożoność pamięciową, która dalej pozostaje $O(n \cdot l)$.
+
 \section*{Złożoność obliczeniowa}
 \begin{enumerate}
     \item Eliminacja Gaussa: Doprowadzenie do postaci macierzy trójkątnej górnej:
