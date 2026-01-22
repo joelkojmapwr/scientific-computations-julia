@@ -44,8 +44,8 @@
     \end{itemize}
     \item Znalezienie rozwiązania wektora $x$ z macierzy trójkątnej górnej:
     \begin{itemize}
-        \item W każdym wierszu wykonujemy sumę nie więcej niż $2l$ elementów.
-        \item Zatem złożoność obliczeniowa wynosi $O(n \cdot 2l) = O(n \cdot l)$, więc jeśli $l$ jest stałe, to złożoność obliczeniowa jest liniowa względem rozmiaru macierzy $n$.
+        \item W każdym wierszu wykonujemy sumę nie więcej niż $3l$ elementów.
+        \item Zatem złożoność obliczeniowa wynosi $O(n \cdot 3l) = O(n \cdot l)$, więc jeśli $l$ jest stałe, to złożoność obliczeniowa jest liniowa względem rozmiaru macierzy $n$.
     \end{itemize}
 \end{enumerate}
 
@@ -54,7 +54,7 @@ Obliczoną złożoność czasową potwierdzają testy czasu działania programu.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{image.png}
+    \includegraphics[width=0.8\textwidth]{time.png}
     \caption{Porównanie czasu działania algorytmu eliminacji Gaussa dla macierzy A dla l=4 oraz l=10 w zależności od rozmiaru macierzy n.}
     \label{fig:times_plot}
 \end{figure}
@@ -64,5 +64,28 @@ Widzimy, że czas działania algorytmu rośnie liniowo wraz ze wzrostem rozmiaru
 Dla większej wartości $l$ czas działania jest większy, co również zgadza się z wyliczoną złożonością czasową $O(n \cdot l^2)$.
 
 \textbf{Wniosek:} Im gęstsza macierz (większe $l$), tym większa złożoność czasowa i pamięciowa, a co za tym idzie dłuższy czas działania algorytmu.
+
+\newpage
+\subsection*{Porównanie błędu obliczeń gdy wykonujemy eliminację Gaussa z i bez częściowego wyboru elementu głównego}
+Gdy wykonujemy eliminację Gaussa bez częściowego wyboru elementu głównego, to możemy trafić na element przekątnej bliski zeru, co powoduje, że dzielimy przez bardzo małą liczbę i tracimy precyzję obliczeń. W efekcie błąd obliczeń rośnie wraz ze wzrostem rozmiaru macierzy $n$.
+Aby temu zapobiec, stosujemy częściowy wybór elementu głównego, czyli w każdej kolumnie przed eliminacją szukamy największego elementu i zamieniamy wiersze tak, aby ten element znalazł się na przekątnej. W ten sposób unikamy dzielenia przez bardzo małe liczby i błąd obliczeń pozostaje niski nawet dla dużych rozmiarów macierzy $n$.
+
+Na wykresie poniżej widzimy, że dla $n=16$ błąd jest bardzo podobny, natomiast dla większych $n$ błąd zaczyna rosnąć bardzo szybko.
+
+Dla $n=10000$ błąd bez częściowego wyboru elementu głównego jest 1000 razy większy niż z częściowym wyborem elementu głównego. 
+Dla jeszcze większych $n$ gdy nie robimy częściowego wyboru elementu głównego błąd rośnie aż do rzędu $10^{-10}$.
+Dzięki wyborowi elementu głównego błąd możemy przybliżyć funkcją stałą równą około $3 \times 10^{-15}$.
+
+\subsubsection*{Wniosek}
+Przy obliczaniu rozwiązań układów równań metodą eliminacji Gaussa, warto stosować częściowy wybór elementu głównego, ponieważ pozwala to zachować dużo lepszą precyzję obliczeń, a co za tym idzie dużo bardziej precyzyjny wynik.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{errors.png}
+    \caption{Porównanie błędu obliczeń dla algorytmu eliminacji Gaussa z i bez częściowego wyboru elementu głównego.}
+    \label{fig:error_plot}
+\end{figure}
+
+
 
 \end{document}
