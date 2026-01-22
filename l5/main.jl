@@ -7,7 +7,7 @@ using .blocksys
 using .Gauss
 using LinearAlgebra
 
-test_sizes = [16]#, 10000, 50000, 100000, 500000, 750000, 1000000]
+test_sizes = [16, 10000, 50000, 100000, 500000, 750000, 1000000]
 
 test_dir = "tests/"
 
@@ -41,16 +41,15 @@ for n in test_sizes
     # display(A.data)
     # display(b)
 
-    println("Row lengths: ", A.row_lengths)
-    println("Row Offsets: ", A.row_offsets)
+    # println("Row lengths: ", A.row_lengths)
+    # println("Row Offsets: ", A.row_offsets)
 
-    # display_matrix(A)
-    println("Length of row 1: ", A.row_lengths[1])
+    # # display_matrix(A)
+    # println("Length of row 1: ", A.row_lengths[1])
 
-    println("Number of elements held in matrix data: ", sum(A.row_lengths[i] for i in 1:n))
+    # println("Number of elements held in matrix data: ", sum(A.row_lengths[i] for i in 1:n))
 
-    Gauss.gauss_elimination(A, b, use_partial_pivoting, blocksys.display_matrix)
-    display_matrix(A)
+    Gauss.gauss_elimination(A, b, use_partial_pivoting)#, blocksys.display_matrix)
 
     # display_matrix(A)
 

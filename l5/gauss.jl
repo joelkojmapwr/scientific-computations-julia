@@ -21,7 +21,7 @@ function find_max_in_column(A, col::Int, start_row::Int)
             end
         end
     end
-    println("Max in column $col from row $start_row is at row $max_row with value $max_value")
+    # println("Max in column $col from row $start_row is at row $max_row with value $max_value")
     return max_row
 end
 
@@ -35,7 +35,7 @@ function gauss_elimination(A, b::Vector{Float64}, use_partial_pivoting::Bool=fal
         if use_partial_pivoting == true
             max_row = find_max_in_column(A, k, k)
             if max_row != k
-                println("Pivoting: swapping row $k with row $max_row")
+                # println("Pivoting: swapping row $k with row $max_row")
                 # Swap rows in A
                 A.data[k], A.data[max_row] = A.data[max_row], A.data[k]
                 A.row_offsets[k], A.row_offsets[max_row] = A.row_offsets[max_row], A.row_offsets[k]
@@ -52,11 +52,11 @@ function gauss_elimination(A, b::Vector{Float64}, use_partial_pivoting::Bool=fal
         for i in (k+1):n 
             # Skip to next column 
             if A.row_offsets[i] > (k-1) # If row starting later than the current column k that we eliminate
-                println("Skipping row $i at column $k")
+                # println("Skipping row $i at column $k")
                 break
             end
             I_factor = A.data[i][k - A.row_offsets[i]] / A.data[k][k - A.row_offsets[k]]
-            println("Eliminating row $i using row $k with factor $I_factor")
+            # println("Eliminating row $i using row $k with factor $I_factor")
             for j in k:(A.row_offsets[k] + A.row_lengths[k]) # We need only to process to row lenghts of k, because the rest is zero and doesn't change the value when calculating A.data[i][idx_row_i] -= I_factor * A.data[k][idx_row_k] (0)
                 idx_row_i = j - A.row_offsets[i]
                 idx_row_k = j - A.row_offsets[k]
