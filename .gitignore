@@ -10,3 +10,5 @@
 *.png
 matrixgen.jl
 l5/tests/
+my_tests/
+*.csv
