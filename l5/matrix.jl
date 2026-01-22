@@ -38,7 +38,7 @@ function calculate_row_offsets_and_lengths(n::Int, l::Int)
 
     for i in 1:l
         row_offsets[i] = 0
-        row_lengths[i] = l + i
+        row_lengths[i] = 2 * l + 1
     end
 
     for k in 2:(v-1)
@@ -46,7 +46,7 @@ function calculate_row_offsets_and_lengths(n::Int, l::Int)
         row_lengths[(k-1)*l + 1] = 2*l + 1
         for i in 2:l
             row_offsets[(k-1)*l + i] = (k-1)*l - 1
-            row_lengths[(k-1)*l + i] = l + i + 1 # Ak + Ck + Bk
+            row_lengths[(k-1)*l + i] = l + l + 1 # Ak + Ck + Bk
         end
     end
 
